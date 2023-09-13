@@ -101,6 +101,10 @@ class OptimizationTest(tf.test.TestCase):
     )
     for key in r:
       print(key, ' :\n', r[key])
+    X = r['x_matrix']
+    X_inv = jnp.linalg.inv(X)
+    obj = jnp.trace(X_inv @ s_matrix.T @ s_matrix)
+    print("obj is: ", obj)
     self.assertLessEqual(r['relative_duality_gap'], 0.001)
 
   # def test_with_program_state_manager(self):
