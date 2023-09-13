@@ -85,6 +85,7 @@ class OptimizationTest(tf.test.TestCase):
   #   lt.assert_valid()
 
   def test_solves_simple_problem(self):
+    gap = 0.0001
     n = 2
     s_matrix = jnp.tri(n)
     # u are columns of contrib_matrix
@@ -97,9 +98,9 @@ class OptimizationTest(tf.test.TestCase):
         lt=lt,
         iters_per_eval=4,
         update_langrange_terms_fn=optimization.OptaxUpdate(
-            nonneg_optimizer=optax.sgd(0.1), lt=lt
+            nonneg_optimizer=optax.sgd(0.01), lt=lt
         ),
-        target_relative_duality_gap=0.001,
+        target_relative_duality_gap=gap,
     )
     for key in r:
       print(key, ' :\n', r[key])
@@ -107,7 +108,7 @@ class OptimizationTest(tf.test.TestCase):
     X_inv = jnp.linalg.inv(X)
     obj = jnp.trace(X_inv @ s_matrix.T @ s_matrix)
     print("obj is: ", obj)
-    self.assertLessEqual(r['relative_duality_gap'], 0.001)
+    self.assertLessEqual(r['relative_duality_gap'], gap)
 
   # def test_with_program_state_manager(self):
   #   state_manager = tff.program.FileProgramStateManager(
