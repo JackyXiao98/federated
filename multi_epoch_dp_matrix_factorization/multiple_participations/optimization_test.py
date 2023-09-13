@@ -88,7 +88,7 @@ class OptimizationTest(tf.test.TestCase):
     n = 4
     s_matrix = jnp.tri(n)
     contrib_matrix = jnp.eye(n)
-    print("s_mat: ", s_matrix)
+    print("s_mat: \n", s_matrix)
     lt = lagrange_terms.init_lagrange_terms(contrib_matrix)
     r = optimization.solve_lagrange_dual_problem(
         s_matrix=s_matrix,
@@ -100,7 +100,7 @@ class OptimizationTest(tf.test.TestCase):
         target_relative_duality_gap=0.001,
     )
     for key in r:
-      print(key, r[key])
+      print(key, ' :\n', r[key])
     self.assertLessEqual(r['relative_duality_gap'], 0.001)
 
   # def test_with_program_state_manager(self):
