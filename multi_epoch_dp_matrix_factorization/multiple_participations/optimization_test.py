@@ -18,6 +18,10 @@ import optax
 import tensorflow as tf
 import tensorflow_federated as tff
 
+# import sys
+# caution: path[0] is reserved for script path (or '' in REPL)
+# sys.path.insert(1, '/content/drive/MyDrive/multi-epoch/multi_epoch_dp_matrix_factorization')
+
 from multi_epoch_dp_matrix_factorization.multiple_participations import contrib_matrix_builders
 from multi_epoch_dp_matrix_factorization.multiple_participations import lagrange_terms
 from multi_epoch_dp_matrix_factorization.multiple_participations import optimization
