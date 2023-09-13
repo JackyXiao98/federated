@@ -98,6 +98,8 @@ class OptimizationTest(tf.test.TestCase):
         ),
         target_relative_duality_gap=0.001,
     )
+    for key in r:
+      print(key, r[key])
     self.assertLessEqual(r['relative_duality_gap'], 0.001)
 
   # def test_with_program_state_manager(self):
