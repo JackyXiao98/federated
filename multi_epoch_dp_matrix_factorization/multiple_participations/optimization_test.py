@@ -93,7 +93,7 @@ class OptimizationTest(tf.test.TestCase):
     contrib_matrix = jnp.array([[2, -3],
                                 [2, 3],
                                 [-2, 3],
-                                [-2, -3]
+                                [-2, -3],
                                 [2, 0],
                                 [-2, 0],
                                 [0, 3],
