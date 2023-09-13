@@ -85,9 +85,11 @@ class OptimizationTest(tf.test.TestCase):
   #   lt.assert_valid()
 
   def test_solves_simple_problem(self):
-    n = 4
+    n = 2
     s_matrix = jnp.tri(n)
-    contrib_matrix = jnp.eye(n)
+    # u are columns of contrib_matrix
+    # contrib_matrix = jnp.eye(n)
+    contrib_matrix = jnp.array([[1, -1], [1, 1]]).T
     print("s_mat: \n", s_matrix)
     lt = lagrange_terms.init_lagrange_terms(contrib_matrix)
     r = optimization.solve_lagrange_dual_problem(
