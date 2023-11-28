@@ -8,6 +8,6 @@ setup(
     author='Yingtai Xiao',
     packages=['multi_epoch_dp_matrix_factorization'],
     zip_safe=False,
-    install_requires=['tensorflow_federated==0.61.0',
+    install_requires=['tensorflow_federated==0.65.0',
                       ],
 )
