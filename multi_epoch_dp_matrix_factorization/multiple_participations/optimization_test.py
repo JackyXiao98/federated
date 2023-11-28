@@ -86,14 +86,18 @@ class OptimizationTest(tf.test.TestCase):
 
   def test_solves_simple_problem(self):
     gap = 0.0001
-    n = 2
+    n = 3
     s_matrix = jnp.tri(n)
     # u are columns of contrib_matrix
     # contrib_matrix = jnp.eye(n)
-    contrib_matrix = jnp.array([[1, 2],
-                                [1, -2],
-                                [-1, 2],
-                                [-1, -2]]).T
+    contrib_matrix = jnp.array([[1, 2, 3],
+                                [1, -2, 3],
+                                [-1, 2, 3],
+                                [-1, -2, 3],
+                                [1, 2, -3],
+                                [1, -2, -3],
+                                [-1, 2, -3],
+                                [-1, -2, -3]]).T
     print("s_mat: \n", s_matrix)
     lt = lagrange_terms.init_lagrange_terms(contrib_matrix)
     r = optimization.solve_lagrange_dual_problem(
