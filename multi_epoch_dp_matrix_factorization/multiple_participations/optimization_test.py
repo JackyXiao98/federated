@@ -90,12 +90,10 @@ class OptimizationTest(tf.test.TestCase):
     s_matrix = jnp.tri(n)
     # u are columns of contrib_matrix
     # contrib_matrix = jnp.eye(n)
-    contrib_matrix = jnp.array([[1, 0],
-                                [0, 1],
-                                [1, 1],
-                                [-1, 0],
-                                [0, -1],
-                                [-1, -1]]).T
+    contrib_matrix = jnp.array([[1, 2],
+                                [1, -2],
+                                [-1, 2],
+                                [-1, -2]]).T
     print("s_mat: \n", s_matrix)
     lt = lagrange_terms.init_lagrange_terms(contrib_matrix)
     r = optimization.solve_lagrange_dual_problem(
