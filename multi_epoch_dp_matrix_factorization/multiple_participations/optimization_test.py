@@ -88,9 +88,9 @@ class OptimizationTest(tf.test.TestCase):
     gap = 0.0001
     n = 3
     # s_matrix = jnp.tri(n)
-    s_matrix = jnp.eye(n) + jnp.array([[5, -1, -1],
-                                       [-2, 6, -3],
-                                       [-4, -2, 8]])
+    s_matrix = jnp.eye(n) + jnp.array([[5, 1, 1],
+                                       [2, 6, 3],
+                                       [4, 2, 8]])
     # u are columns of contrib_matrix
     # contrib_matrix = jnp.eye(n)
     contrib_matrix = jnp.array([[1, 2, 3],
