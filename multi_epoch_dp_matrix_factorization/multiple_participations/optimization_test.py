@@ -13,6 +13,7 @@
 # limitations under the License.
 """Tests for optimization."""
 from jax import numpy as jnp
+from jax import random
 import numpy as np
 import optax
 import tensorflow as tf
@@ -86,11 +87,15 @@ class OptimizationTest(tf.test.TestCase):
 
   def test_solves_simple_problem(self):
     gap = 0.0001
+    key = random.PRNGKey(0)  # You can use any integer seed here
+    matrix_shape = (3, 3)  # Example shape, you can change this to your desired dimensions
+    random_matrix = random.uniform(key, matrix_shape)
     n = 3
     # s_matrix = jnp.tri(n)
-    s_matrix = jnp.eye(n) + jnp.array([[5, 1, 1],
-                                       [2, 6, 3],
-                                       [4, 2, 8]])
+    # s_matrix = jnp.eye(n) + jnp.array([[5, 1, 1],
+    #                                    [2, 6, 3],
+    #                                    [4, 2, 8]])
+    s_matrix = random_matrix
     # u are columns of contrib_matrix
     # contrib_matrix = jnp.eye(n)
     contrib_matrix = jnp.array([[1, 2, 3],
