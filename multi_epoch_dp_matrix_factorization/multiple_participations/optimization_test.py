@@ -101,7 +101,7 @@ class OptimizationTest(tf.test.TestCase):
 
   def test_solves_simple_problem(self):
     gap = 0.0001
-    n = 4
+    n = 5
    
     key = random.PRNGKey(0)  # You can use any integer seed here
     matrix_shape = (n, n)  # Example shape, you can change this to your desired dimensions
