@@ -115,7 +115,7 @@ class OptimizationTest(tf.test.TestCase):
     # u are columns of contrib_matrix
     # contrib_matrix = jnp.eye(n)
     comb_matrix = generate_binary_combinations(n)
-    contrib_array = np.array([2, 2, 3, 5])
+    contrib_array = np.array([2, 2, 3, 5, 7])
     contrib_nparr = comb_matrix * contrib_array[:, np.newaxis]
     contrib_matrix = jax.device_put(contrib_nparr)
   
@@ -132,7 +132,7 @@ class OptimizationTest(tf.test.TestCase):
     r = optimization.solve_lagrange_dual_problem(
         s_matrix=s_matrix,
         lt=lt,
-        iters_per_eval=4,
+        iters_per_eval=10,
         update_langrange_terms_fn=optimization.OptaxUpdate(
             nonneg_optimizer=optax.sgd(0.01), lt=lt
         ),
