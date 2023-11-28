@@ -116,7 +116,7 @@ class OptimizationTest(tf.test.TestCase):
     # contrib_matrix = jnp.eye(n)
     comb_matrix = generate_binary_combinations(n)
     contrib_array = np.array([2, 2, 3, 5])
-    contrib_nparr = comb_matrix * x[:, np.newaxis]
+    contrib_nparr = comb_matrix * contrib_array[:, np.newaxis]
     contrib_matrix = jax.device_put(contrib_nparr)
   
     # contrib_matrix = jnp.array([[1, 2, 3],
