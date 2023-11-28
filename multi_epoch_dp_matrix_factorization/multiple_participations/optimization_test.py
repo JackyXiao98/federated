@@ -104,7 +104,7 @@ class OptimizationTest(tf.test.TestCase):
     n = 5
    
     key = random.PRNGKey(0)  # You can use any integer seed here
-    matrix_shape = (n, n)  # Example shape, you can change this to your desired dimensions
+    matrix_shape = (n, n)  
     random_matrix = random.uniform(key, matrix_shape)
 
     s_matrix = jnp.tri(n)
@@ -112,6 +112,7 @@ class OptimizationTest(tf.test.TestCase):
     #                                    [2, 6, 3],
     #                                    [4, 2, 8]])
     # s_matrix = random_matrix
+
     # u are columns of contrib_matrix
     # contrib_matrix = jnp.eye(n)
     comb_matrix = generate_binary_combinations(n)
