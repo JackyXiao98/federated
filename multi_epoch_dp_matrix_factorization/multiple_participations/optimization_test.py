@@ -18,6 +18,7 @@ import numpy as np
 import optax
 import tensorflow as tf
 import tensorflow_federated as tff
+import jax
 
 # import sys
 # caution: path[0] is reserved for script path (or '' in REPL)
@@ -28,6 +29,19 @@ from multi_epoch_dp_matrix_factorization.multiple_participations import contrib_
 from multi_epoch_dp_matrix_factorization.multiple_participations import lagrange_terms
 from multi_epoch_dp_matrix_factorization.multiple_participations import optimization
 
+
+def generate_binary_combinations(n):
+    # Generate all possible integers from 0 to 2^n - 1
+    num_combinations = 2**n
+    binary_combinations = np.arange(num_combinations)
+    
+    # Convert integers to binary strings with leading zeros
+    binary_strings = [format(i, '0' + str(n) + 'b') for i in binary_combinations]
+    
+    # Convert binary strings to numpy arrays of {-1, 1}
+    binary_matrix = np.array([[int(bit) * 2 - 1 for bit in binary_string] for binary_string in binary_strings]).T
+    
+    return binary_matrix
 
 class OptimizationTest(tf.test.TestCase):
 
@@ -87,25 +101,32 @@ class OptimizationTest(tf.test.TestCase):
 
   def test_solves_simple_problem(self):
     gap = 0.0001
+    n = 4
+   
     key = random.PRNGKey(0)  # You can use any integer seed here
-    matrix_shape = (3, 3)  # Example shape, you can change this to your desired dimensions
+    matrix_shape = (n, n)  # Example shape, you can change this to your desired dimensions
     random_matrix = random.uniform(key, matrix_shape)
-    n = 3
-    # s_matrix = jnp.tri(n)
+
+    s_matrix = jnp.tri(n)
     # s_matrix = jnp.eye(n) + jnp.array([[5, 1, 1],
     #                                    [2, 6, 3],
     #                                    [4, 2, 8]])
-    s_matrix = random_matrix
+    # s_matrix = random_matrix
     # u are columns of contrib_matrix
     # contrib_matrix = jnp.eye(n)
-    contrib_matrix = jnp.array([[1, 2, 3],
-                                [1, -2, 3],
-                                [-1, 2, 3],
-                                [-1, -2, 3],
-                                [1, 2, -3],
-                                [1, -2, -3],
-                                [-1, 2, -3],
-                                [-1, -2, -3]]).T
+    comb_matrix = generate_binary_combinations(n)
+    contrib_array = np.array([2, 2, 3, 5])
+    contrib_nparr = comb_matrix * x[:, np.newaxis]
+    contrib_matrix = jax.device_put(contrib_nparr)
+  
+    # contrib_matrix = jnp.array([[1, 2, 3],
+    #                             [1, -2, 3],
+    #                             [-1, 2, 3],
+    #                             [-1, -2, 3],
+    #                             [1, 2, -3],
+    #                             [1, -2, -3],
+    #                             [-1, 2, -3],
+    #                             [-1, -2, -3]]).T
     print("s_mat: \n", s_matrix)
     lt = lagrange_terms.init_lagrange_terms(contrib_matrix)
     r = optimization.solve_lagrange_dual_problem(
