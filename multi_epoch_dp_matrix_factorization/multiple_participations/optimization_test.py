@@ -102,7 +102,7 @@ class OptimizationTest(tf.test.TestCase):
   def test_solves_simple_problem(self):
     key = random.PRNGKey(0)  # You can use any integer seed here
     gap = 0.001
-    n = 8
+    n = 10
    
     a = np.arange(n, 0, -1)
     r = np.random.random(n)
