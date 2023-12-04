@@ -100,18 +100,16 @@ class OptimizationTest(tf.test.TestCase):
   #   lt.assert_valid()
 
   def test_solves_simple_problem(self):
-    gap = 0.0001
-    n = 3
+    key = random.PRNGKey(0)  # You can use any integer seed here
+    gap = 0.001
+    n = 4
    
     a = np.arange(n, 0, -1)
     r = np.random.random(n)
-
     T = np.sum(np.sqrt(a * r**2))**2
-
     print("vec r:", r)
     print("obj: ", T)
 
-    key = random.PRNGKey(0)  # You can use any integer seed here
     # matrix_shape = (n, n)  
     # random_matrix = random.uniform(key, matrix_shape)
 
