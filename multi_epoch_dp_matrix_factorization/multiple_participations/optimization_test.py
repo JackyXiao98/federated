@@ -102,7 +102,7 @@ class OptimizationTest(tf.test.TestCase):
   def test_solves_simple_problem(self):
     key = random.PRNGKey(0)  # You can use any integer seed here
     gap = 0.001
-    n = 14
+    n = 4
    
     a = np.arange(n, 0, -1)
     r = np.random.random(n)
@@ -155,6 +155,15 @@ class OptimizationTest(tf.test.TestCase):
 
     diag = jnp.diag(contrib_matrix.T @ X @ contrib_matrix)
     print("diag: ", diag)
+
+    X_abs = np.abs(np.asarray(X))
+    mask = np.ones(X_abs.shape, dtype=bool)
+    np.fill_diagonal(mask, 0)
+    max_value = X_abs[mask].max()
+    min_value = X_abs[mask].min()
+    avg_value = X_abs[mask].mean()
+    print("max, min, avg:", max_value, min_value, avg_value)
+
   # def test_with_program_state_manager(self):
   #   state_manager = tff.program.FileProgramStateManager(
   #       root_dir=self.create_tempdir('program_state')
