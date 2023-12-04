@@ -100,7 +100,7 @@ class OptimizationTest(tf.test.TestCase):
   #   lt.assert_valid()
 
   def test_solves_simple_problem(self):
-    gap = 0.001
+    gap = 0.0001
     n = 3
    
     a = np.arange(n, 0, -1)
@@ -155,6 +155,8 @@ class OptimizationTest(tf.test.TestCase):
     print("obj is: ", obj)
     self.assertLessEqual(r['relative_duality_gap'], gap)
 
+    diag = jnp.diag(contrib_matrix.T @ X @ contrib_matrix)
+    print("diag: ", diag)
   # def test_with_program_state_manager(self):
   #   state_manager = tff.program.FileProgramStateManager(
   #       root_dir=self.create_tempdir('program_state')
