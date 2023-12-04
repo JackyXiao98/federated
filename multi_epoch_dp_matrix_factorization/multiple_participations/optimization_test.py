@@ -105,7 +105,8 @@ class OptimizationTest(tf.test.TestCase):
     n = 8
    
     a = np.arange(n, 0, -1)
-    r = np.random.random(n)
+    # r = np.random.random(n)
+    r = np.random.randint(1, 11, size=10)
     T = np.sum(np.sqrt(a * r**2))**2
     print("vec r:", r)
     print("obj: ", T)
