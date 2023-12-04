@@ -101,11 +101,19 @@ class OptimizationTest(tf.test.TestCase):
 
   def test_solves_simple_problem(self):
     gap = 0.001
-    n = 5
+    n = 3
    
+    a = np.arange(n, 0, -1)
+    r = np.random.random(n)
+
+    T = np.sum(np.sqrt(a * r**2))**2
+
+    print("vec r:", r)
+    print("obj: ", T)
+
     key = random.PRNGKey(0)  # You can use any integer seed here
-    matrix_shape = (n, n)  
-    random_matrix = random.uniform(key, matrix_shape)
+    # matrix_shape = (n, n)  
+    # random_matrix = random.uniform(key, matrix_shape)
 
     s_matrix = jnp.tri(n)
     # s_matrix = jnp.eye(n) + jnp.array([[5, 1, 1],
@@ -116,7 +124,7 @@ class OptimizationTest(tf.test.TestCase):
     # u are columns of contrib_matrix
     # contrib_matrix = jnp.eye(n)
     comb_matrix = generate_binary_combinations(n)
-    contrib_array = np.array([2, 2, 3, 5, 7])
+    contrib_array = r
     contrib_nparr = comb_matrix * contrib_array[:, np.newaxis]
     contrib_matrix = jax.device_put(contrib_nparr)
   
