@@ -111,9 +111,9 @@ class OptimizationTest(tf.test.TestCase):
     # print("vec r:", r)
     # print("obj: ", T)
 
-    # s_matrix = jnp.tri(n)
-    s_matrix = jnp.array([[1, 1, 0, 0],
-                          [0, 0, 1, 1]])
+    s_matrix = jnp.tri(n)
+    # s_matrix = jnp.array([[1, 1, 0, 0],
+    #                       [0, 0, 1, 1]])
     # matrix_shape = (n, n)  
     # random_matrix = random.uniform(key, matrix_shape)
     # s_matrix = random_matrix
