@@ -102,31 +102,35 @@ class OptimizationTest(tf.test.TestCase):
   def test_solves_simple_problem(self):
     key = random.PRNGKey(0)  # You can use any integer seed here
     gap = 0.001
-    n = 8
+    n = 4
    
-    a = np.arange(n, 0, -1)
+    # a = np.arange(n, 0, -1)
     # r = np.random.random(n)
-    r = np.random.randint(1, 11, size=n)
-    T = np.sum(np.sqrt(a * r**2))**2
-    print("vec r:", r)
-    print("obj: ", T)
+    # r = np.random.randint(1, 11, size=n)
+    # T = np.sum(np.sqrt(a * r**2))**2
+    # print("vec r:", r)
+    # print("obj: ", T)
 
+    # s_matrix = jnp.tri(n)
+    s_matrix = jnp.array([[1, 1, 0, 0],
+                          [0, 0, 1, 1]])
     # matrix_shape = (n, n)  
     # random_matrix = random.uniform(key, matrix_shape)
-
-    s_matrix = jnp.tri(n)
-    # s_matrix = jnp.eye(n) + jnp.array([[5, 1, 1],
-    #                                    [2, 6, 3],
-    #                                    [4, 2, 8]])
     # s_matrix = random_matrix
 
     # u are columns of contrib_matrix
     # contrib_matrix = jnp.eye(n)
-    comb_matrix = generate_binary_combinations(n)
-    contrib_array = r
-    contrib_nparr = comb_matrix * contrib_array[:, np.newaxis]
-    contrib_matrix = jax.device_put(contrib_nparr)
+    # comb_matrix = generate_binary_combinations(n)
+    # contrib_array = r
+    # contrib_nparr = comb_matrix * contrib_array[:, np.newaxis]
+    # contrib_matrix = jax.device_put(contrib_nparr)
   
+    contrib_matrix = jnp.array([[1, 0, 1, 0],
+                                [0, 1, 0, 1],
+                                [-1, 0, -1, 0],
+                                [0, -1, 0, -1]]).T
+
+
     # contrib_matrix = jnp.array([[1, 2, 3],
     #                             [1, -2, 3],
     #                             [-1, 2, 3],
